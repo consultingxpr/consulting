@@ -1,0 +1,224 @@
+<div class="main-content">
+  <div class="container-fluid my ">
+    <div class="row">
+      <div class="col-md-8 mx-auto ">
+        <div class="card">
+          <div class="card-header card-header-info">
+            <h4 class="card-title">Inscription</h4>
+
+
+          </div>
+          <div class="card-body">
+            <mat-horizontal-stepper [linear]="isLinear" #stepper>
+              <mat-step [stepControl]="firstFormGroup">
+                <form [formGroup]="firstFormGroup">
+                  <ng-template matStepLabel>Remplir les champs</ng-template>
+                  <div>
+                    <mat-form-field>
+                      <mat-label>Raison sociale</mat-label>
+                      <input matInput placeholder="raisonsocial" formControlName="raisonsocial">
+                      <mat-error *ngIf="firstFormGroup.controls.raisonsocial.invalid && formSubmitAttemptFirst">Raison
+                        sociale est obligatoire</mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                      <mat-label>Forme juridique</mat-label>
+                      <mat-select formControlName="formejuridique">
+
+                        <mat-option *ngFor="let formejuridique of formejuridiques" [value]="formejuridique">
+                          {{formejuridique}}</mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="firstFormGroup.controls.formejuridique.invalid && formSubmitAttemptFirst">la
+                        forme juridique est obligatoire</mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                      <mat-label>Secteur d'activité</mat-label>
+                      <mat-select formControlName="secteur" (selectionChange)="fn()">
+
+                        <mat-option *ngFor="let secteur of secteurs" [value]="secteur">{{secteur}}</mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="firstFormGroup.controls.secteur.invalid && formSubmitAttemptFirst">Le secteur
+                        d'activité est obligatoire</mat-error>
+                    </mat-form-field>
+                    <mat-form-field *ngIf="firstFormGroup.controls.secteur.value == 'Autres services'">
+                      <mat-label>Quel est ce secteur ?</mat-label>
+                      <input matInput placeholder="autresecteur" formControlName="autresecteur">
+                      <mat-error *ngIf="firstFormGroup.controls.autresecteur.invalid && formSubmitAttemptFirst">Le
+                        secteur d'activité est obligatoire</mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                      <mat-label>Date de création de l'entreprise</mat-label>
+                      <input matInput [matDatepicker]="picker" formControlName="Date">
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                      <mat-error *ngIf="firstFormGroup.controls.Date.invalid && formSubmitAttemptFirst">la date de
+                        création est obligatoire</mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                      <mat-label>Matricule fiscal</mat-label>
+                      <input matInput placeholder="matriculefiscal" formControlName="matriculefiscal">
+                      <mat-error *ngIf="firstFormGroup.controls.matriculefiscal.invalid && formSubmitAttemptFirst">le
+                        matricule fiscal est obligatoire</mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div>
+                    <button mat-button class="btn btn-primary pull-right" (click)="submitAttempt(1)"
+                      matStepperNext>Suivant</button>
+                  </div>
+                </form>
+              </mat-step>
+              <mat-step [stepControl]="secondFormGroup">
+                <form [formGroup]="secondFormGroup">
+                  <ng-template matStepLabel>Remplir les champs</ng-template>
+                  <mat-form-field>
+                    <mat-label>Numéro de telephone</mat-label>
+                    <input matInput placeholder="Numero de telephone" onkeypress="return event.charCode >= 48" type="number" formControlName="tel" required>
+                    <mat-error *ngIf="secondFormGroup.controls.tel.invalid && formSubmitAttemptSec">le numéro de
+                      téléphone est obligatoire</mat-error>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <mat-label>Fax</mat-label>
+                    <input matInput placeholder="Fax" onkeypress="return event.charCode >= 48" type="number" formControlName="fax">
+                  </mat-form-field>
+                  <mat-form-field>
+                    <mat-label>Nom du représentant légal</mat-label>
+                    <input matInput placeholder="representant" formControlName="representant" required>
+                    <mat-error *ngIf="secondFormGroup.controls.representant.invalid && formSubmitAttemptSec">le nom du
+                      représentant est obligatoire</mat-error>
+                  </mat-form-field>
+                  <div>
+                    <button mat-button class="btn btn-primary pull-right" (click)="submitAttempt(2)"
+                      matStepperNext>Suivant</button>
+                    <button mat-button class="btn btn-danger pull-right" matStepperPrevious>Précédant</button>
+
+                  </div>
+                </form>
+              </mat-step>
+
+              <mat-step [stepControl]="thirdFormGroup">
+                <form [formGroup]="thirdFormGroup">
+                  <ng-template matStepLabel>Remplir les champs</ng-template>
+                  <mat-form-field>
+                    <mat-label>Adresse</mat-label>
+                    <input matInput placeholder="Adresse" formControlName="adresse" required>
+                    <mat-error *ngIf="thirdFormGroup.controls.adresse.invalid && formSubmitAttemptThird">l'adresse est
+                      obligatoire</mat-error>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <mat-label>Code Postal</mat-label>
+                    <input matInput placeholder="Code Postal" type="number" onkeypress="return event.charCode >= 48" formControlName="codepostal" required>
+                    <mat-error *ngIf="thirdFormGroup.controls.codepostal.invalid && formSubmitAttemptThird">le code
+                      Postal est obligatoire</mat-error>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <mat-label>pays</mat-label>
+                    <mat-select formControlName="pays">
+                      <mat-option *ngFor="let country of countries" [value]="country.id">{{country.name}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="thirdFormGroup.controls.pays.invalid && formSubmitAttemptThird">le pays est
+                      obligatoire</mat-error>
+                  </mat-form-field>
+
+
+                  <mat-form-field>
+                    <mat-label>Etat</mat-label>
+                    <mat-select formControlName="etat">
+                      <ng-container *ngFor="let state of states">
+
+                        <mat-option *ngIf="state.country_id == thirdFormGroup.controls.pays.value" [value]="state.id">
+                          {{state.name}}
+                        </mat-option>
+                      </ng-container>
+                    </mat-select>
+                    <mat-error *ngIf="thirdFormGroup.controls.pays.invalid && formSubmitAttemptThird">l'etat est
+                      obligatoire</mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field>
+                    <mat-label>ville</mat-label>
+                    <mat-select formControlName="ville">
+                      <ng-container *ngFor="let city of cities">
+
+                        <mat-option *ngIf="city.state_id == thirdFormGroup.controls.etat.value" [value]="city.id">
+                          {{city.name}}
+                        </mat-option>
+                      </ng-container>
+                    </mat-select>
+                    <mat-error *ngIf="thirdFormGroup.controls.ville.invalid && formSubmitAttemptThird">la ville est
+                      obligatoire</mat-error>
+                  </mat-form-field>
+
+
+                  <div>
+                    <button mat-button class="btn btn-primary pull-right" (click)="submitAttempt(3)"
+                      matStepperNext>Suivant</button>
+                    <button mat-button class="btn btn-danger pull-right" matStepperPrevious>Précédant</button>
+
+                  </div>
+                </form>
+              </mat-step>
+              <mat-step [stepControl]="fourthFormGroup">
+                <form [formGroup]="fourthFormGroup">
+                  <ng-template matStepLabel>Données de connexion</ng-template>
+                  <div class="row justify-content-center align-items-center">
+                    <div class="col-md-6 custom-file">
+                      <input #imageInput type="file" class="custom-file-input" id="validatedCustomFile" accept="image/*"
+                        (change)="addImage(imageInput)">
+                      <label class="custom-file-label" for="validatedCustomFile">Choisir votre logo</label>
+                      <div class="invalid-feedback">Example invalid custom file feedback</div>
+                    </div>
+                    <div class="col-md-6">
+                      <img alt="Image placeholder" class="card-avatar image rounded-circle" src="{{previewURL}}">
+                    </div>
+                  </div>
+                  <div style="margin-left: 0px;margin-right: 0px;" class="row col-md-12">
+                    <mat-form-field class="col-md-12">
+                      <mat-label>Adresse E-mail</mat-label>
+                      <input matInput placeholder="Adresse E-mail" name="email" formControlName="email" required>
+                      <mat-error *ngIf="fourthFormGroup.controls.email.invalid && formSubmitAttemptFourth">L'adresse
+                        e-mail est obligatoire</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="col-md-6">
+                      <mat-label>Nouveau mot de passe</mat-label>
+                      <input matInput placeholder="Mot de passe" name="password" [type]="hide ? 'password' : 'text'"
+                        formControlName="password"  required>
+                        <span (click)="hide = !hide" style="cursor:pointer" matSuffix>
+                          <i class="material-icons" *ngIf="!hide">visibility_off</i>
+                          <i class="material-icons" *ngIf="hide">visibility</i>
+                        </span>
+                      <mat-error *ngIf="fourthFormGroup.controls.password.invalid && formSubmitAttemptFourth">Veuillez
+                        choisir un nouveau mot de passe</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="col-md-6">
+                      <mat-label>Confirmer mot de passe</mat-label>
+                      <input matInput placeholder="Mot de passe" [type]="hide ? 'password' : 'text'" formControlName="confirmermotdepasse"
+                        required>
+                        <span (click)="hide = !hide" style="cursor:pointer" matSuffix>
+                          <i class="material-icons" *ngIf="!hide">visibility_off</i>
+                          <i class="material-icons" *ngIf="hide">visibility</i>
+                        </span>
+                      <mat-error
+                        *ngIf="fourthFormGroup.controls.confirmermotdepasse.invalid && formSubmitAttemptFourth">
+                        les deux mots de passes ne correspondent pas.</mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div>
+                    <button mat-button class="btn btn-primary pull-right"
+                      (click)="submitAttempt(4);onSubmit()">Comfirmer</button>
+                    <button mat-button class="btn btn-danger pull-right" matStepperPrevious>Précédant</button>
+
+                  </div>
+                </form>
+              </mat-step>
+            </mat-horizontal-stepper>
+          </div>
+          <div class="card-footer">
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>

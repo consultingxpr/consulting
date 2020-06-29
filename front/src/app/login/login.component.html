@@ -1,0 +1,52 @@
+<div class="main-content"  >
+  <div class="container-fluid my ">
+      <div class="row">
+          <div class="col-md-6 mx-auto ">
+              <div class="card">
+                  <div class="card-header card-header-info">
+                      <h4 class="card-title">Authentification</h4>
+                     
+                          <ul *ngIf="error" class="error">
+                          <li>{{error}} </li>
+                          <li> Pour plus d'informations, vous devez contacter votre administration </li>
+                        </ul> 
+                        <ul *ngIf="validation && !error" class="error">
+                                <li>{{validation}} </li>
+                              </ul>
+                        
+                  </div>
+                  <div class="card-body">
+                      <form (submit)="onLoginSubmit()">
+                        <div class="row">
+                          <div class="col-md-8">
+                            <mat-form-field class="example-full-width">
+                              <input matInput placeholder="Email" type="email" [(ngModel)]="email" name="email">
+                            </mat-form-field>
+                          </div>
+                        </div> 
+                          <div class="row">
+                              <div class="col-md-8">
+                                <mat-form-field class="example-full-width">
+                                  <input  matInput placeholder="Mot De Passe" [type]="hide ? 'password' : 'text'" [(ngModel)]="password" name="password">
+                                  <span (click)="hide = !hide" style="cursor:pointer" matSuffix>
+                                    <i class="material-icons" *ngIf="!hide">visibility_off</i>
+                                    <i class="material-icons" *ngIf="hide">visibility</i>
+                                  </span>
+                                </mat-form-field>
+                              </div>
+                          </div>
+                        
+                          <button mat-raised-button type="submit" class="btn btn-info pull-right">
+                              <i *ngIf="loginIn" class="fa fa-spinner fa-spin mr-2"></i>Connexion
+                          </button>
+                          <a routerLink="/register" class="btn btn-info pull-right">Inscription</a>
+
+                          
+                          <div class="clearfix"></div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+          </div>
+      </div>
+  </div>

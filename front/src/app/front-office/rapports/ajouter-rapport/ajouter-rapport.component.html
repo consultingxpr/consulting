@@ -1,0 +1,228 @@
+<!--<div class="main-content">
+    <div class="container-fluid my ">
+        <div class="row">
+            <div class="col-md-4 mx-auto ">
+                <div class="card">
+                    <div class="card-header card-header-info">
+                        <h4 class="card-title">Ajouter une balance</h4>
+
+
+                    </div>
+                    <div class="card-body">
+                        <div class="center">
+                            <ngx-file-drop dropZoneLabel="Drop files here" [disabled]="isBalance || (isBilan && isEtat)"
+                                (onFileDrop)="dropped($event,1)" (onFileOver)="fileOver($event)"
+                                (onFileLeave)="fileLeave($event)">
+                                <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                                    Déposez le fichier ici
+                                    
+                                </ng-template>
+                            </ngx-file-drop>
+
+                        </div>
+
+                    </div>
+                    <div class="card-footer">
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mx-auto ">
+                <div class="card">
+                    <div class="card-header card-header-info">
+                        <h4 class="card-title">Ajouter un bilan</h4>
+
+
+                    </div>
+                    <div class="card-body">
+                        <div class="center">
+                            <ngx-file-drop dropZoneLabel="Drop files here" [disabled]="isBilan || isBalance"
+                                (onFileDrop)="dropped($event,2)" (onFileOver)="fileOver($event)"
+                                (onFileLeave)="fileLeave($event)">
+                                <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                                    Déposez le fichier ici
+                                  
+                                </ng-template>
+                            </ngx-file-drop>
+
+                        </div>
+
+                    </div>
+                    <div class="card-footer">
+
+
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mx-auto ">
+                <div class="card">
+                    <div class="card-header card-header-info">
+                        <h4 class="card-title">Ajouter un etat de resultat</h4>
+
+
+                    </div>
+                    <div class="card-body">
+                        <div class="center">
+                            <ngx-file-drop dropZoneLabel="Drop files here" [disabled]="isEtat || isBalance"
+                                (onFileDrop)="dropped($event,3)" (onFileOver)="fileOver($event)"
+                                (onFileLeave)="fileLeave($event)">
+                                <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                                    Déposez le fichier ici
+                                   
+                                </ng-template>
+                            </ngx-file-drop>
+
+                        </div>
+
+                    </div>
+                    <div class="card-footer">
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>-->
+<div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
+    style="min-height: 50px; background-size: cover; background-position: center top;">
+    <!-- Mask -->
+    <span class="mask bg-gradient-danger opacity-8"></span>
+    <!-- Header container -->
+    <div class="container-fluid d-flex align-items-center">
+        <div class="row">
+            <div class="col-lg-7 col-md-10">
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid mt--7">
+    <div class="row">
+        <div class="col-xl-12 order-xl-1">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <h3 class="mb-0">Générer un rapport</h3>
+                            <p class="text-danger"><i *ngIf="message==='En cours'" class="fa fa-spinner fa-spin mr-2"></i>{{message}}</p>
+                        </div>
+                        <div class="col-4 text-right">
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <!-- Description -->
+
+                    <div class="disp-flex border-0 ">
+                        <h3 class="heading-small mb-4">Ajouter une balance</h3>
+
+                    </div>
+                    <div class="pl-lg-4 row">
+                        <div class="col-md-6">
+                            <label for="balance">Balance comptable :</label><br />
+                            <input #balanceInput (change)="addFile(balanceInput,1)" type="file" id="balance"
+                                name="balance" [disabled]="isBalance || (isBilan && isEtat)" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                                <br/><br/><label>Date de la balance comptable</label>
+                                <mat-form-field>
+                                    <input matInput [matDatepicker]="picker1" [min]="now"
+                                        [(ngModel)]="date_balance" [value]="date_balance">
+                                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker1></mat-datepicker>
+                                </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                            <h4><strong>Le fichier doit impérativement commencer par la 3éme ligne et contenir les
+                                    colonnes comme indiquer dans l'image.</strong>
+                            </h4>
+                            <img class="img-fluid" src="../../../../assets/img/exemple-balance.PNG" />
+                            <a class="btn btn-sm btn-green" target="_blank"
+                                href="../../../../assets/files/exemple_balance.xlsx">Telecharger
+                                modéle</a>
+                        </div>
+                    </div>
+                    <hr class="my-4" />
+                    <div class="border-0 ">
+                        <h3 class="heading-small  mb-4">Ajouter un bilan</h3>
+                        <p class="text-danger"><i *ngIf="message==='En cours'" class="fa fa-spinner fa-spin mr-2"></i>{{message}}</p>
+                        <div>
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="pl-lg-4 mb-0 row">
+                        <div class="col-md-6">
+                            <label for="bilan">Bilan comptable:</label><br />
+                            <input #bilanInput (change)="addFile(bilanInput,2)" type="file" id="bilan" name="bilan"
+                                [disabled]="isBalance || isBilan" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                                <br/><br/><label>Date du bilan comptable</label>
+                                <mat-form-field>
+                                    <input matInput [matDatepicker]="picker2" [min]="now"
+                                        [(ngModel)]="date_bilan" [value]="date_bilan">
+                                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker2></mat-datepicker>
+                                </mat-form-field>
+                                
+                        </div>
+                        <div class="col-md-6">
+                            <h4><strong>Le fichier doit impérativement contenir les lignes ainsi que les colonnes comme indiquer dans l'image.</strong>
+                            </h4>
+                            <img class="img-fluid" src="../../../../assets/img/exemple-bilan.PNG" />
+                            <a class="btn btn-sm btn-green" target="_blank"
+                                href="../../../../assets/files/bilan.xlsx">Telecharger
+                                modéle</a>
+                        </div>
+
+
+
+
+
+
+                    </div>
+                    <hr class="my-4" />
+
+                    <div class="border-0">
+                        <h3 class="heading-small mb-4">Ajouter un etat de resultat</h3>
+                        <p class="text-danger"><i *ngIf="message==='En cours'" class="fa fa-spinner fa-spin mr-2"></i>{{message}}</p>
+                    </div>
+                    <div class="pl-lg-4 row mb-5">
+                        <div class="col-md-6">
+                            <label for="etat">Etat de resultat :</label><br/>
+                        <input #etatInput (change)="addFile(etatInput,3)" type="file" id="etat"
+                                name="etat" [disabled]="isBalance || isEtat" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                                <br/><br/><label>Date de l'état de resultat</label>
+                                <mat-form-field>
+                                    <input matInput [matDatepicker]="picker3" [min]="now"
+                                        [(ngModel)]="date_etat" [value]="date_etat">
+                                    <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker3></mat-datepicker>
+                                </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                            <h4><strong>Le fichier doit impérativement contenir les lignes ainsi que les colonnes comme indiquer dans l'image.</strong>
+                            </h4>
+                            <img class="img-fluid" src="../../../../assets/img/exemple-etat.PNG" />
+                            <a class="btn btn-sm btn-green" target="_blank" href="../../../../assets/files/etat.xlsx">Telecharger
+                                modéle</a>
+                        </div>
+                        
+
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

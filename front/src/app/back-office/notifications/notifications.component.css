@@ -1,0 +1,27 @@
+
+
+
+@media (max-width:1199px){
+    .longtext {
+        display: inline-block;
+        max-width: 650px;
+        width: auto;
+        white-space: nowrap;
+        overflow: hidden !important;
+        text-overflow: ellipsis;
+    }
+
+}
+@media (min-width:1200px){
+    .longtext {
+        display: inline-block;
+        max-width: 950px;
+        width: auto;
+        white-space: nowrap;
+        overflow: hidden !important;
+        text-overflow: ellipsis;
+    }
+    .dropdown-item.active, .dropdown-item:active {
+        background-color: inherit;
+    }
+}

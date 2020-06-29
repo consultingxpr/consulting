@@ -1,0 +1,422 @@
+<div class="receipt-content" style="margin-top:5%;">
+    <div class="row ml-5 mr-5 mt-5 mb-2" *ngIf="bilan || etat || balance">
+        <div class="col-4">
+            <h2>
+                <span *ngIf="isBilan && !isBalance">Bilan n° : <strong>{{bilan.num}}</strong></span>
+                <span *ngIf="!isBilan && !isBalance">Etat de resultat n° : <strong>{{etat.num}}</strong></span>
+                <span *ngIf="!isBilan && isBalance">Balance n° : <strong>{{balance.num}}</strong></span>
+            </h2>
+        </div>
+        <div class="col-8">
+            <h2>
+                <span *ngIf="isBilan && !isBalance">Date du bilan comptable: <strong
+                        *ngIf="bilan.date_bilan"> {{bilan.date_bilan | date:'medium'}}</strong><strong
+                        *ngIf="!bilan.date_bilan"> {{bilan.createdAt | date:'medium'}}</strong></span>
+                <span *ngIf="!isBilan && !isBalance">Date de l'état de resultat<strong
+                        *ngIf="etat.date_etat"> {{etat.date_etat | date:'medium'}}</strong><strong
+                        *ngIf="!etat.date_etat"> {{etat.createdAt | date:'medium'}}</strong></span>
+                <span *ngIf="!isBilan && isBalance">Date de la balance comptable<strong
+                        *ngIf="balance.date_etat"> {{balance.date_balance | date:'medium'}}</strong><strong
+                        *ngIf="!balance.date_balance"> {{balance.createdAt | date:'medium'}}</strong></span>
+            </h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12" *ngIf="isBilan && bilan && !isBalance">
+            <div class="snippet">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="invoice-wrapper">
+                            <div class="payment-info">
+                                <div class="row">
+                                    <div class="col-sm-6">
+
+                                        <strong *ngIf="bilan">Bilan</strong>
+                                    </div>
+                                    <div class="col-sm-6 text-right">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="payment-details">
+                                <div class="row">
+                                    <div class="col-sm-6" *ngIf="bilan">
+                                        <p class="client-info">
+                                            <span class="info-label">Actifs </span><br />
+                                            <strong class="info-text">Actifs non courants</strong>
+                                        </p>
+                                        <div class="ml-0">
+                                            <strong>Actifs immobilisés</strong>
+                                            <div class="ml-2">
+                                                <p>Immobilisation incorporelles</p>
+                                                <p>Immobilisation corporelles</p>
+                                                <p>Immobilisation financières</p>
+                                                <strong>Total des actifs immobilisés</strong>
+                                            </div>
+                                            <strong>Autres actifs non courants</strong>
+                                        </div>
+                                        <strong>Total des actifs non courants</strong>
+                                        <p class="client-info">
+                                            <strong class="info-text">Actifs courants</strong>
+                                        </p>
+                                        <div class="ml-0">
+
+                                            <div class="ml-2">
+                                                <p>Stocks</p>
+                                                <p>Clients et comptes rattachés</p>
+                                                <p>Autres actifs courants</p>
+                                                <p>Placements et autres actifs financiers</p>
+                                                <p>Liquidités et équivalents de liquidités</p>
+                                                <strong>Total des actifs courants</strong>
+                                            </div>
+                                            <strong class="ml-5">Total des actifs</strong>
+                                        </div>
+                                        <p class="client-info">
+                                            <span class="info-label">Capitaux Propres et Passifs</span><br />
+                                            <span class="info-text">Capitaux propres</span>
+                                        </p>
+                                        <div class="ml-0">
+                                            <div class="ml-2">
+                                                <p>Capital social</p>
+                                                <p>Réserves</p>
+                                                <p>Autres capitaux propres</p>
+                                                <p>Résultats reportés</p>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <strong>Total des capitaux propres avant résultat de
+                                                l’exercice</strong><br />
+                                            <strong>Résultat de l’exercice</strong><br />
+                                            <strong>Total des capitaux propres avant affectation</strong>
+                                        </div>
+                                        <p class="client-info">
+                                            <span class="info-label">Passifs </span><br /><br />
+                                            <strong class="info-text">Passifs non courants</strong>
+                                        </p>
+                                        <div class="ml-0">
+                                            <div class="ml-2">
+                                                <p>Emprunts</p>
+                                                <p>Autres passifs financiers</p>
+                                                <p>Provisions</p>
+                                                <strong>Total des passifs non courants</strong>
+                                            </div>
+                                        </div>
+                                        <p class="client-info">
+                                            <strong class="info-text">Passifs courants</strong>
+                                        </p>
+                                        <div class="ml-0">
+                                            <div class="ml-2">
+                                                <p>Fournisseurs et comptes rattachés</p>
+                                                <p>Autres passifs courants</p>
+                                                <p>Concours bancaires et autres passifs financiers</p>
+                                            </div>
+                                        </div>
+                                        <br /><br />
+                                        <p class="client-info">
+                                            <strong class="info-text">Total des passifs courants</strong><br />
+                                            <strong class="info-text">Total des passifs</strong><br />
+                                            <strong class="info-text">Total des capitaux propres et des passifs</strong>
+                                        </p>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="float-right text-right" *ngIf="bilan">
+                                            <p class="client-info">
+                                                <span class="info-label"></span>
+                                                <strong class="info-text"></strong>
+                                            </p><br /><br />
+                                            <div>
+                                                <strong></strong>
+                                                <div>
+                                                    <p>{{bilan.actifs_n_courants.immo_incorp | number:'0.3-3'}}</p>
+                                                    <p>{{bilan.actifs_n_courants.immo_corp | number:'0.3-3'}}</p>
+                                                    <p>{{bilan.actifs_n_courants.immo_fin | number:'0.3-3'}}</p>
+                                                    <strong>{{bilan.actifs_n_courants.immo_incorp+bilan.actifs_n_courants.immo_corp+bilan.actifs_n_courants.immo_fin | number:'0.3-3'}}</strong>
+                                                </div>
+                                                <strong>{{bilan.actifs_n_courants.autres_actifs_non_courants | number:'0.3-3'}}</strong>
+                                            </div>
+                                            <strong>{{total_n_actifs | number:'0.3-3'}}</strong>
+                                            <p class="client-info">
+                                                <strong class="info-text"></strong>
+                                            </p>
+                                            <div class="ml-0">
+                                                <br />
+                                                <div class="ml-2">
+                                                    <p>{{bilan.actifs_courants.stocks | number:'0.3-3'}}</p>
+                                                    <p>{{bilan.actifs_courants.clients_comptes_rattache | number:'0.3-3'}}
+                                                    </p>
+                                                    <p></p>
+                                                    <p>{{bilan.actifs_courants.autres_actifs_courants | number:'0.3-3'}}
+                                                    </p>
+                                                    <p>{{bilan.actifs_courants.placements_autres_actifs_fin | number:'0.3-3'}}
+                                                    </p>
+                                                    <p>{{bilan.actifs_courants.liquidite_equiv_liquidite | number:'0.3-3'}}
+                                                    </p>
+
+                                                    <strong>{{total_actifs | number:'0.3-3'}}</strong>
+                                                </div>
+                                                <strong
+                                                    class="ml-0">{{total_actifs+total_n_actifs | number:'0.3-3'}}</strong>
+                                            </div>
+                                            <p class="client-info">
+                                                <span class="info-label"></span>
+                                                <span class="info-text"></span>
+                                            </p>
+                                            <div class="ml-0">
+                                                <div class="ml-0">
+                                                    <br />
+                                                    <p>{{bilan.capitaux_propres.capital_social | number:'0.3-3'}}</p>
+                                                    <p>{{bilan.capitaux_propres.reserves | number:'0.3-3'}}</p>
+                                                    <p>{{bilan.capitaux_propres.autres_capitaux_propres | number:'0.3-3'}}
+                                                    </p>
+                                                    <p>{{bilan.capitaux_propres.resultats_reportees | number:'0.3-3'}}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div>
+
+                                                <strong>{{total_capitaux | number:'0.3-3'}}</strong><br /><br />
+                                                <strong>0</strong><br />
+                                                <strong>{{total_capitaux | number:'0.3-3'}}</strong><br />
+                                            </div>
+                                            <p class="client-info">
+                                                <span class="info-label"></span>
+                                                <strong class="info-text"></strong>
+                                            </p>
+                                            <div class="ml-0">
+                                                <div class="ml-0">
+                                                    <br />
+                                                    <p>{{bilan.passifs_non_courants.emprunts | number:'0.3-3'}}</p>
+                                                    <p>{{bilan.passifs_non_courants.autres_passif_fin | number:'0.3-3'}}
+                                                    </p>
+                                                    <p>{{bilan.passifs_non_courants.provisions | number:'0.3-3'}}</p>
+                                                    <strong>{{total_n_passif | number:'0.3-3'}}</strong>
+                                                </div>
+                                            </div>
+                                            <p class="client-info">
+                                                <strong class="info-text"></strong>
+                                            </p>
+                                            <div class="ml-0">
+                                                <div class="ml-0">
+                                                    <br />
+                                                    <p>{{bilan.passifs_courants.fournisseurs_comptes_rattache | number:'0.3-3'}}
+                                                    </p>
+                                                    <br />
+                                                    <p>{{bilan.passifs_courants.autres_passifs_courants | number:'0.3-3'}}
+                                                    </p>
+                                                    <p>{{bilan.passifs_courants.concours_bancaire_autres_passifs_fin | number:'0.3-3'}}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <p class="client-info">
+                                                <br />
+                                                <strong
+                                                    class="info-text">{{total_passif | number:'0.3-3'}}</strong><br />
+                                                <strong
+                                                    class="info-text">{{total_passif+total_n_passif | number:'0.3-3'}}</strong><br />
+                                                <strong
+                                                    class="info-text">{{total_passif+total_n_passif+total_capitaux | number:'0.3-3'}}</strong>
+                                            </p>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12" *ngIf="!isBilan && etat && !isBalance">
+            <div class="snippet">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="invoice-wrapper">
+                            <div class="payment-info">
+                                <div class="row">
+                                    <div class="col-sm-6">
+
+                                        <strong *ngIf="etat">Etat de resultat</strong>
+                                    </div>
+                                    <div class="col-sm-6 text-right">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="payment-details">
+                                <div class="row">
+                                    <div class="col-sm-6" *ngIf="etat">
+                                        <p class="client-info">
+                                            <strong class="info-text">Revenus </strong>
+                                        </p>
+                                        <div class="ml-2">
+                                            <p>Produits d'exploitation</p>
+                                            <p>Production immobilisée</p>
+                                        </div>
+                                        <strong>Total des produits d'exploitation</strong>
+                                        <p class="client-info">
+                                            <strong class="info-text">Charges d'exploitation</strong>
+                                        </p>
+                                        <div class="ml-2">
+                                            <p>Variation des stocks des produits finis et des encours (en+ou-) </p>
+                                            <p>Achats de marchandises consommés</p>
+                                            <p>Achats d'approvisionnements consommés</p>
+                                            <p>Charges de personnel</p>
+                                            <p>Dotations aux amortissements et aux provisions</p>
+                                            <p>Autres charges d'exploitation</p>
+                                        </div>
+                                        <strong>Total des charges d'exploitation</strong>
+                                        <p class="client-info">
+                                            <strong class="info-text">Résultat d'exploitation</strong>
+                                        </p>
+                                        <div class="ml-2">
+                                            <p>Charges financières nettes</p>
+                                            <p>Produits des placements</p>
+                                            <p>Autres gains ordinaires</p>
+                                            <p>Autres pertes ordinaires</p>
+                                        </div>
+                                        <strong>Résultat des activités ordinaires avant impôt</strong>
+                                        <div class="ml-2">
+                                            <p>Impôt sur les bénéfices</p>
+                                        </div>
+                                        <strong>Résultat des activités ordinaires après impôt</strong>
+                                        <div class="ml-2">
+                                            <p>Eléments extraordinaires (Gains/Pertes)</p>
+                                        </div>
+                                        <strong>Résultat net de l’exercice</strong>
+                                        <hr class="my-4" />
+                                        <strong>Résultat net de l’exercice</strong>
+                                        <div class="ml-2">
+                                            <p>Effet des modifications comptables (net d'impôt)</p>
+                                        </div>
+                                        <strong>Résultat après modifications comptables</strong>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="float-right text-right" *ngIf="etat">
+                                            <p class="client-info">
+                                                <strong class="info-text"></strong>
+                                            </p><br />
+                                            <div class="ml-0">
+                                                <p>{{etat.produits_exploitation.prod_exploits | number:'0.3-3'}}</p>
+                                                <p>{{etat.produits_exploitation.prod_immo | number:'0.3-3'}}</p>
+                                            </div>
+                                            <strong>{{total_exploit | number:'0.3-3'}}</strong>
+                                            <p class="client-info">
+                                                <strong class="info-text"></strong>
+                                            </p><br />
+                                            <div class="ml-0">
+                                                <p>{{etat.charges_exploitation.var_stocks_prod_finis_encours | number:'0.3-3'}}
+                                                </p>
+                                                <p>{{etat.charges_exploitation.achats_marchandises_consom | number:'0.3-3'}}
+                                                </p>
+                                                <p>{{etat.charges_exploitation.achats_approvisionnements_consom| number:'0.3-3'}}
+                                                </p>
+                                                <p>{{etat.charges_exploitation.charges_personnel | number:'0.3-3'}}</p>
+                                                <p>{{etat.charges_exploitation.dot_amor_prov | number:'0.3-3'}}</p>
+                                                <p>{{etat.charges_exploitation.autres_charges_exploit | number:'0.3-3'}}
+                                                </p>
+                                            </div>
+                                            <strong>{{total_charges_exploit | number:'0.3-3'}}</strong>
+                                            <p class="client-info">
+                                                <strong class="info-text"></strong>
+                                            </p><br />
+                                            <div class="ml-0">
+                                                <p>{{etat.resultats_exploitation.charges_fin_net | number:'0.3-3'}}</p>
+                                                <p>{{etat.resultats_exploitation.prod_placements | number:'0.3-3'}}</p>
+                                                <p>{{etat.resultats_exploitation.autres_gains_ordi | number:'0.3-3'}}
+                                                </p>
+                                                <p>{{etat.resultats_exploitation.autres_pertes_ordi | number:'0.3-3'}}
+                                                </p>
+                                            </div>
+                                            <strong>{{result_av_impot | number:'0.3-3'}}</strong>
+                                            <div class="ml-0">
+                                                <p>{{etat.impot_benefice  | number:'0.3-3'}}</p>
+                                            </div>
+                                            <strong>{{result_av_impot+etat.impot_benefice | number:'0.3-3'}}</strong>
+                                            <div class="ml-0">
+                                                <p>{{etat.elem_extra | number:'0.3-3'}}</p>
+                                            </div>
+                                            <strong>{{result_av_net | number:'0.3-3'}}</strong>
+                                            <hr class="my-4" />
+                                            <strong>{{result_apr_mod-etat.effet_modif_compta | number:'0.3-3'}}</strong>
+                                            <div class="ml-0">
+                                                <p>{{etat.effet_modif_compta | number:'0.3-3'}}</p>
+                                            </div>
+                                            <strong>{{result_apr_mod | number:'0.3-3'}}</strong>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12" *ngIf="!isBilan && balance && isBalance">
+            <div class="snippet">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="invoice-wrapper">
+                            <div class="payment-info">
+                                <div class="row">
+                                    <div class="col-sm-6">
+
+                                        <strong *ngIf="balance">Balance comptable</strong>
+                                    </div>
+                                    <div class="col-sm-6 text-right">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="payment-details">
+                                <div class="table-responsive">
+                                    <table class="table align-items-center table-flush">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th scope="col">N° Compte</th>
+                                                <th scope="col">Libelé</th>
+                                                <th scope="col">Debit</th>
+                                                <th scope="col">Credit</th>
+                                                <th scope="col">Debiteur</th>
+                                                <th scope="col">Crediteur</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let element of balance.balance;let i=index">
+                                                <td class="mb-0 text-sm">{{element.compte}}</td>
+                                                <td>{{element.lib}}</td>
+                                                <td>{{element.debit}}</td>
+                                                <td>{{element.credit}}</td>
+                                                <td>{{element.debiteur}}</td>
+                                                <td>{{element.crediteur}}</td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

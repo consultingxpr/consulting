@@ -1,0 +1,44 @@
+.drop-zone{
+    margin:auto;
+    height:100px;
+    border:2px dotted #0782d0;
+    border-radius:30px
+}
+.content{
+    color:#0782d0;
+    height:100px;
+    display:flex;
+    justify-content:center;
+    align-items:center
+}
+.over
+{
+    background-color:rgba(147,147,147,.5)
+}
+
+.custom{
+    margin-top: 100px;
+}
+.center{
+    text-align: center;
+}
+.text-style{
+    font-size: 28px;
+    padding: 15px;
+}
+.drop-container{
+    padding-top: 20px;
+}
+.upload-table{
+    padding-top: 20px;
+}
+
+.disp-flex{
+    display: flex;
+    justify-content: space-between;
+}
+.btn-green{
+    background:#85b311;
+    border:1px solid #85b311;
+    color:white;
+}

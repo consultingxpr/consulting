@@ -1,0 +1,298 @@
+<div class="container-fluid mt--7 mt-5" *ngIf="!isDocument">
+    <div class="row">
+        <div class="col-xl-3 order-xl-2 mb-5 mb-xl-0">
+            <div class="card card-profile">
+                <div class="row justify-content-center">
+                    <div class="col-lg-3 order-lg-2">
+
+                        <div class="card-profile-image">
+                                <img src="{{previewURL}}" class="rounded-circle image">
+                        </div>
+                    </div>
+                </div>
+                <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+                    <div class="d-flex justify-content-between">
+
+
+                    </div>
+                </div>
+                <div class="card-body pt-0 pt-md-4">
+                    
+                    <div class="row">
+                        <div class="col">
+                            <div class="card-profile-stats d-flex justify-content-center mt-md-5">
+                                <div>
+                                    <div class="custom-file">
+                                        <input #imageInput placeholder="Logo" accept="image/*" lang="fr"
+                                            (change)="addImage(imageInput)" type="file" class="custom-file-input"
+                                            id="customFile">
+                                        <label class="custom-file-label text-left" for="customFile">Logo</label>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-9 order-xl-1">
+            <div class="card">
+                <div class="card-header bg-white border-0">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <h3 class="mb-0" *ngIf="user">Raison sociale: {{user.raisonsocial}}</h3>
+                        </div>
+                        <div class="col-4 text-right">
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                   
+                    
+                   
+                        <!-- Description -->
+                        <h6 class="heading-small text-muted mb-4">Information</h6>
+                        <div class="pl-lg-4">
+                            <form [formGroup]="firstFormGroup">
+                                <mat-form-field>
+                                    <mat-label>Raison sociale</mat-label>
+                                    <input matInput placeholder="raisonsocial" formControlName="raisonsocial">
+                                    <mat-error *ngIf="firstFormGroup.controls.raisonsocial.invalid && formSubmitAttemptFirst">Raison
+                                      sociale est obligatoire</mat-error>
+                                  </mat-form-field>
+                                  <mat-form-field>
+                                    <mat-label>Forme juridique</mat-label>
+                                    <mat-select formControlName="formejuridique">
+              
+                                      <mat-option *ngFor="let formejuridique of formejuridiques" [value]="formejuridique">
+                                        {{formejuridique}}</mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="firstFormGroup.controls.formejuridique.invalid && formSubmitAttemptFirst">la
+                                      forme juridique est obligatoire</mat-error>
+                                  </mat-form-field>
+                                  <mat-form-field>
+                                    <mat-label>Secteur d'activité</mat-label>
+                                    <mat-select formControlName="secteur" (selectionChange)="fn()">
+              
+                                      <mat-option *ngFor="let secteur of secteurs" [value]="secteur">{{secteur}}</mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="firstFormGroup.controls.secteur.invalid && formSubmitAttemptFirst">Le secteur
+                                      d'activité est obligatoire</mat-error>
+                                  </mat-form-field>
+                                  <mat-form-field *ngIf="firstFormGroup.controls.secteur.value == 'Autres services'">
+                                    <mat-label>Quel est ce secteur ?</mat-label>
+                                    <input matInput placeholder="autresecteur" formControlName="autresecteur">
+                                    <mat-error *ngIf="firstFormGroup.controls.autresecteur.invalid && formSubmitAttemptFirst">Le
+                                      secteur d'activité est obligatoire</mat-error>
+                                  </mat-form-field>
+                                  <mat-form-field>
+                                    <mat-label>Date de création de l'entreprise</mat-label>
+                                    <input matInput [matDatepicker]="picker" formControlName="Date">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                    <mat-error *ngIf="firstFormGroup.controls.Date.invalid && formSubmitAttemptFirst">la date de
+                                      création est obligatoire</mat-error>
+                                  </mat-form-field>
+                                  <mat-form-field>
+                                    <mat-label>Matricule fiscal</mat-label>
+                                    <input matInput placeholder="matriculefiscal" formControlName="matriculefiscal">
+                                    <mat-error *ngIf="firstFormGroup.controls.matriculefiscal.invalid && formSubmitAttemptFirst">le
+                                      matricule fiscal est obligatoire</mat-error>
+                                  </mat-form-field>
+                            </form>
+                        </div>
+                        <hr class="my-4" />
+                        <h6 class="heading-small text-muted mb-2">Contact</h6>
+                        <div class="pl-lg-4">
+                            <form [formGroup]="secondFormGroup">
+                                <mat-form-field>
+                                  <mat-label>Numéro de telephone</mat-label>
+                                  <input matInput placeholder="Numero de telephone" onkeypress="return event.charCode >= 48" type="number" formControlName="tel" required>
+                                  <mat-error *ngIf="secondFormGroup.controls.tel.invalid && formSubmitAttemptSec">le numéro de
+                                    téléphone est obligatoire</mat-error>
+                                </mat-form-field>
+                                <mat-form-field>
+                                  <mat-label>Fax</mat-label>
+                                  <input matInput placeholder="Fax" onkeypress="return event.charCode >= 48" type="number" formControlName="fax">
+                                </mat-form-field>
+                                <mat-form-field>
+                                  <mat-label>Nom du représentant légal</mat-label>
+                                  <input matInput placeholder="representant" formControlName="representant" required>
+                                  <mat-error *ngIf="secondFormGroup.controls.representant.invalid && formSubmitAttemptSec">le nom du
+                                    représentant est obligatoire</mat-error>
+                                </mat-form-field>
+                                
+                              </form>
+                        </div>
+                        <hr class="my-4" />
+                        <h6 class="heading-small text-muted mb-4">Adresse</h6>
+                        <div class="pl-lg-4">
+                            <form [formGroup]="thirdFormGroup">
+                                <mat-form-field>
+                                  <mat-label>Adresse</mat-label>
+                                  <input matInput placeholder="Adresse" formControlName="adresse" required>
+                                  <mat-error *ngIf="thirdFormGroup.controls.adresse.invalid && formSubmitAttemptThird">l'adresse est
+                                    obligatoire</mat-error>
+                                </mat-form-field>
+                                <mat-form-field>
+                                  <mat-label>Code Postal</mat-label>
+                                  <input matInput placeholder="Code Postal" onkeypress="return event.charCode >= 48" formControlName="codepostal" required>
+                                  <mat-error *ngIf="thirdFormGroup.controls.codepostal.invalid && formSubmitAttemptThird">le code
+                                    Postal est obligatoire</mat-error>
+                                </mat-form-field>
+                                <mat-form-field>
+                                  <mat-label>pays</mat-label>
+                                  <mat-select formControlName="pays">
+                                    <mat-option *ngFor="let country of countries" [value]="country.id">{{country.name}}
+                                    </mat-option>
+                                  </mat-select>
+                                  <mat-error *ngIf="thirdFormGroup.controls.pays.invalid && formSubmitAttemptThird">le pays est
+                                    obligatoire</mat-error>
+                                </mat-form-field>
+              
+              
+                                <mat-form-field>
+                                  <mat-label>Etat</mat-label>
+                                  <mat-select formControlName="etat">
+                                    <ng-container *ngFor="let state of states">
+              
+                                      <mat-option *ngIf="state.country_id == thirdFormGroup.controls.pays.value" [value]="state.id">
+                                        {{state.name}}
+                                      </mat-option>
+                                    </ng-container>
+                                  </mat-select>
+                                  <mat-error *ngIf="thirdFormGroup.controls.pays.invalid && formSubmitAttemptThird">l'etat est
+                                    obligatoire</mat-error>
+                                </mat-form-field>
+              
+                                <mat-form-field>
+                                  <mat-label>ville</mat-label>
+                                  <mat-select formControlName="ville">
+                                    <ng-container *ngFor="let city of cities">
+              
+                                      <mat-option *ngIf="city.state_id == thirdFormGroup.controls.etat.value" [value]="city.id">
+                                        {{city.name}}
+                                      </mat-option>
+                                    </ng-container>
+                                  </mat-select>
+                                  <mat-error *ngIf="thirdFormGroup.controls.ville.invalid && formSubmitAttemptThird">la ville est
+                                    obligatoire</mat-error>
+                                </mat-form-field>
+                              </form>
+                        </div>
+                        <div class="text-center">
+                            <button
+                            [ngClass]="{ 'btn-danger': firstFormGroup.invalid || secondFormGroup.invalid || thirdFormGroup.invalid , 'btn-success': !firstFormGroup.invalid && !secondFormGroup.invalid && !thirdFormGroup.invalid}"
+                            [disabled]="firstFormGroup.invalid || secondFormGroup.invalid || thirdFormGroup.invalid"
+                                type="submit" class="btn btn-danger pull-right">Mettre a jour le profile</button>
+                        </div>
+                    
+                   
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8" *ngIf="isDocument">
+    <div class="container-fluid">
+        <div class="header-body">
+
+        </div>
+    </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7" *ngIf="isDocument">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header border-0 disp-flex">
+                    <div class="mb-0">
+                        <h3 *ngIf="user">Liste des documents pour le client: {{user.raisonsocial}}</h3>
+                        <p>{{documentsLength}} <span *ngIf="isBilan">Bilan</span><span *ngIf="!isBilan">Etat</span></p>
+                        <mat-select class="mt-4" [(ngModel)]="activeEntity" [value]="0" name="filtre"
+                            class="select-top">
+                            <mat-option class="filtre-text" value="0" disabled>Type de document
+                            </mat-option>
+                            <mat-option class="filtre-text" [value]="1" (click)="filtre()">Bilans
+                            </mat-option>
+                            <mat-option class="filtre-text" [value]="2" (click)="filtre()">Etat de resultat
+                            </mat-option>
+                            <mat-option class="filtre-text" [value]="3" (click)="filtre()">Balance
+                            </mat-option>
+
+                        </mat-select>
+                    </div>
+
+                    <div class="mb-0" style="display:grid">
+                        <form
+                            class="navbar-search navbar-search-light form-inline mr-3 d-none d-md-flex ml-lg-auto mt-3">
+                            <div class="form-group mb-0" [ngClass]="{ 'focused': focus === true }">
+                                <div class="input-group input-group-alternative">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="material-icons">search</i></span>
+                                    </div>
+                                    <input class="form-control" placeholder="Rechercher" type="text" #input>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+
+                </div>
+                <div class="product">
+                    <mat-card *ngIf="dataSource.loading$ | async"
+                        style="display: flex; justify-content: center; align-items: center">
+                        <mat-progress-spinner mode="indeterminate">
+                        </mat-progress-spinner>
+                    </mat-card>
+                    <table mat-table [dataSource]="dataSource" matSort
+                        class="table  mat-elevation-z8 align-items-center table-flush">
+                        <!-- Created at Column -->
+                        <ng-container matColumnDef="num">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> N° </th>
+                            <td mat-cell *matCellDef="let element">{{element.num}} </td>
+                        </ng-container>
+                        <!-- Created at Column -->
+                        <ng-container matColumnDef="createdAt">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Date de création </th>
+                            <td mat-cell *matCellDef="let element">{{element.createdAt | date}} </td>
+                        </ng-container>
+                        <!-- Action Column -->
+                        <ng-container matColumnDef="action">
+                            <th mat-header-cell *matHeaderCellDef> Action </th>
+                            <td mat-cell *matCellDef="let element">
+                                <button *ngIf="isBilan && !isBalance" class="dropdown-item"
+                                    routerLink="/admin/documents/consulter-document"
+                                    [queryParams]="{id: element._id,type:1}"><i
+                                        class="material-icons">remove_red_eye</i></button>
+                                <button *ngIf="!isBilan && !isBalance" class="dropdown-item"
+                                    routerLink="/admin/documents/consulter-document"
+                                    [queryParams]="{id: element._id,type:2}"><i
+                                        class="material-icons">remove_red_eye</i></button>
+                                <button *ngIf="!isBilan && isBalance" class="dropdown-item"
+                                    routerLink="/admin/documents/consulter-document"
+                                    [queryParams]="{id: element._id,type:3}"><i
+                                        class="material-icons">remove_red_eye</i></button>
+
+                            </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns; let i = index;"></tr>
+                    </table>
+
+
+                </div>
+                <div class="card-footer py-4">
+                    <mat-paginator [length]="documentsLength" [pageSize]="5" [pageSizeOptions]="[5,10]"></mat-paginator>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

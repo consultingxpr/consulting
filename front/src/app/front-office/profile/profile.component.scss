@@ -1,0 +1,14 @@
+::ng-deep.form-control {
+    color:#000;
+  }
+  .image {
+    object-fit:cover;
+    opacity: 1;
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 160px;
+    max-height: 300px;
+    transition: .5s ease;
+    backface-visibility: hidden;
+  }

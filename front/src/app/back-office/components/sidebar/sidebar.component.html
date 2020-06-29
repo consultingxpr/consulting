@@ -1,0 +1,305 @@
+<div class="logo row">
+    <a href="http://xpr.com.tn" class="simple-text">
+        <div class="logo-img">
+            <img src="/assets/img/logo.png" />
+            <br>
+        </div>
+    </a>
+</div>
+<div class="sidebar-wrapper">
+    <div *ngIf="isMobileMenu()">
+        <ul class="nav navbar-nav nav-mobile-menu">
+            <li routerLinkActive="active" class="nav-item" *ngIf="!isAdmin">
+                <a class="nav-link" [routerLink]="['/client/profile']" *ngIf="image"> <img
+                        style="width:70px;height:70px;margin-top:10px" class="rounded-circle mx-auto d-block"
+                        src="{{baseUrl}}{{image}}" /></a>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav nav-mobile-menu">
+            <li class="nav-item takeleft dropdown">
+            <li routerLinkActive="active" class="nav-item dropdown" (click)="notification_seen()">
+                <a class="nav-link" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                    <i class="material-icons">notifications</i>
+                    <span class="notification">{{ unseen_notifications }} </span>
+                    <p>
+                        <span class="d-lg-none d-md-block" *ngIf="unseen_notifications <= 1">Notification</span>
+                        <span class="d-lg-none d-md-block" *ngIf="unseen_notifications > 1">Notifications</span>
+                    </p>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                    <h6 class="dropdown-header">Notifications:</h6>
+                    <li class="scroll">
+                        <a class="dropdown-item" *ngIf="notifications?.length <= 0">
+                            <div class="text-black mx-auto">Aucune Notification</div>
+                        </a>
+                        <a class="dropdown-item" *ngFor="let notification of notifications"
+                            routerLink="{{notification.link}}">
+
+                            <div class="row justify-content-start">
+                                <div class="col-3">
+                                    <div *ngIf="notification.image; else defaultImage">
+                                        <img style="width:40px;height:40px;" class="rounded-circle"
+                                            src="{{baseUrl}}{{notification.image}}" />
+                                    </div>
+                                    <ng-template #defaultImage>
+                                        <i class="material-icons" style="width:60px;height:60px;" class="rounded-circle">people</i>
+                                    </ng-template>
+                                </div>
+                                <div class="col-3">
+                                    <div class="card-title font-weight-bold"><b>{{notification.title}}</b></div>
+                                    <div class="text-muted longtext">{{notification.message}}</div>
+                                    <div class="card-text text-info">{{timeAgo(notification.createdAt)}}</div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" [routerLink]="['/notifications']">
+                        <div class="text-primary mx-auto">Voir Tout</div>
+                    </a>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <ul class="nav">
+
+        <li routerLinkActive="active" *ngIf="isAdmin" class="nav-item takeleft">
+            <a class="nav-link" [routerLink]="['/admin/dashboard']">
+                <i class="material-icons">bubble_chart</i>
+                <p>Tableau de bord</p>
+            </a>
+        </li>
+        <li *ngIf="isAdmin" routerLinkActive="active" class="nav-item takeleft">
+            <a class="nav-link" [routerLink]="['/admin/clients']">
+                <i class="material-icons">people</i>
+                <p>Liste des clients</p>
+            </a>
+        </li>
+        <li *ngIf="isAdmin" routerLinkActive="active" class="nav-item takeleft">
+            <a class="nav-link" [routerLink]="['/admin/documents']">
+                <i class="material-icons">library_books</i>
+                <p>Liste des documents</p>
+            </a>
+        </li>
+        <li *ngIf="isAdmin" routerLinkActive="active" class="nav-item takeleft">
+            <a class="nav-link" [routerLink]="['/admin/rapports']">
+                <i class="material-icons">featured_play_list</i>
+                <p>Liste des rapports</p>
+            </a>
+        </li>
+        <li routerLinkActive="active" *ngIf="!isAdmin" class="nav-item takeleft">
+            <a class="nav-link" [routerLink]="['/client/dashboard']">
+                <i class="material-icons">bubble_chart</i>
+                <p>Tableau de bord</p>
+            </a>
+        </li>
+        <li *ngIf="!isAdmin" class="nav-item takeleft" routerLinkActive="active" style="cursor: pointer;"
+            class="nav-item takeleft">
+            <a class="nav-link" (click)="RPexpanded = !RPexpanded">
+                <i class="material-icons">featured_play_list</i>
+                <p>Rapports
+                    <span fxFlex>
+                        <span fxFlex></span>
+                        <mat-icon [@indicatorRotate]="RPexpanded ? 'RPcollapsed' : 'RPexpanded'" class="pull-right">
+                            expand_more
+                        </mat-icon>
+                    </span>
+                </p>
+            </a>
+        </li>
+        <div *ngIf="RPexpanded">
+            <li routerLinkActive="active" class="nav-item ml-n1">
+                <a class="nav-link" [routerLink]="['/client/ajouter-rapport']">
+                    <i class="material-icons">folder_shared</i>
+                    <p>Generer un rapport</p>
+                </a>
+            </li>
+        </div>
+        <div *ngIf="RPexpanded">
+            <li routerLinkActive="active" class="nav-item ml-n1">
+                <a class="nav-link" [routerLink]="['/client/rapport']">
+                    <i class="material-icons">library_books</i>
+                    <p>Liste des rapports</p>
+                </a>
+            </li>
+        </div>
+        <li *ngIf="!isAdmin" routerLinkActive="active" class="nav-item takeleft">
+            <a class="nav-link" [routerLink]="['/client/document']">
+                <i class="material-icons">library_books</i>
+                <p>Mes documents</p>
+            </a>
+        </li>
+        <li *ngIf="!isAdmin" routerLinkActive="active" class="nav-item takeleft">
+            <a class="nav-link" [routerLink]="['/client/formulaire/consulter-formulaire']">
+                <i class="material-icons">work</i>
+                <p>Mon questionnaire</p>
+            </a>
+        </li>
+
+        <li routerLinkActive="active" class="nav-item takeleft" *ngIf="!isAdmin">
+            <a class="nav-link" [routerLink]="['/client/profile']" [queryParams]="{id: userId}">
+                <i class="material-icons">people</i>
+                <p>Profile</p>
+            </a>
+        </li>
+
+        <li *ngIf="isAdmin" class="nav-item takeleft" routerLinkActive="active" style="cursor: pointer;">
+            <a class="nav-link" (click)="Paramexpanded = !Paramexpanded">
+                <i class="material-icons">build</i>
+                <p>Paramètres
+                    <span fxFlex>
+                        <span fxFlex></span>
+                        <mat-icon [@indicatorRotate]="Paramexpanded ? 'Paramcollapsed' : 'Paramexpanded'"
+                            class="pull-right">
+                            expand_more
+                        </mat-icon>
+                    </span>
+                </p>
+            </a>
+        </li>
+        
+        <div *ngIf="Paramexpanded && isAdmin">
+            <li routerLinkActive="active" class="nav-item ml-n1">
+                <a class="nav-link" [routerLink]="['/admin/users']">
+                    <i class="material-icons">people</i>
+                    <p>Liste des utilisateurs</p>
+                </a>
+            </li>
+        </div>
+        <div *ngIf="Paramexpanded && isAdmin">
+            <li routerLinkActive="active" class="nav-item ml-n1">
+                <a class="nav-link" [routerLink]="['/admin/ajouter-user']">
+                    <i class="material-icons">person_add</i>
+                    <p>Ajouter utilisateur</p>
+                </a>
+            </li>
+        </div>
+
+
+
+
+
+        <!-- Gest treso 
+        <li  *ngIf="permissions?.includes('encaissement') || permissions?.includes('decaissement') || permissions?.includes('reglement')" class="nav-item takeleft" routerLinkActive="active" style="cursor: pointer;" >
+                <a style="font-size: 14px;" class="nav-link" (click)="Tresoexpanded = !Tresoexpanded">
+                    <i class="material-icons">compare_arrows</i>
+                   <p>Gestion de trésorerie
+                    <span fxFlex>
+                        <span fxFlex></span>
+                        <mat-icon [@indicatorRotate]="Tresoexpanded ? 'Tresocollapsed' : 'Tresoexpanded'" class="pull-right">
+                            expand_more
+                        </mat-icon>
+                    </span>
+                    </p>
+                </a>
+            </li>
+            <div *ngIf="Tresoexpanded">
+                <li *ngIf="permissions?.includes('encaissement')" routerLinkActive="active" class="nav-item ml-n1">
+                    <a class="nav-link" [routerLink]="['/treso']">
+                        <i class="material-icons">arrow_back</i>
+                        <p>Tableau des encaissements</p>
+                    </a>
+                </li>
+            </div>
+            <div *ngIf="Tresoexpanded">
+                <li *ngIf="permissions?.includes('decaissement')" routerLinkActive="active" class="nav-item ml-n1">
+                    <a class="nav-link" [routerLink]="['/decaissement']">
+                        <i class="material-icons">arrow_forward</i>
+                        <p>Tableau des décaissements</p>
+                    </a>
+                </li>
+            </div>
+            <div *ngIf="Tresoexpanded">
+                    <li *ngIf="permissions?.includes('reglement')" routerLinkActive="active" class="nav-item ml-n1">
+                        <a class="nav-link" [routerLink]="['/reglements']">
+                            <i class="material-icons">playlist_add_check</i>
+                            <p>Gestion des règlements</p>
+                        </a>
+                    </li>
+                </div>
+
+             Ressource humaine
+            <li  *ngIf="permissions?.includes('rh')" class="nav-item takeleft" routerLinkActive="active" style="cursor: pointer;" >
+                <a style="font-size: 14px;" class="nav-link" (click)="Hrexpanded = !Hrexpanded">
+                    <i class="material-icons">how_to_reg</i>
+                    <p>Ressources humaines
+                    <span fxFlex>
+                <span fxFlex></span>
+                <mat-icon [@indicatorRotate]="Hrexpanded ? 'Hrcollapsed': 'Hrexpanded'" class="pull-right">
+                expand_more
+                </mat-icon>
+            </span>
+                </a> 
+            </li>
+            <div *ngIf="Hrexpanded">
+                    <li *ngIf="permissions?.includes('rhCreate')" routerLinkActive="active"  class="nav-item ml-n1">
+                            <a class="nav-link" [routerLink]="['/userRh']">
+                                <i class="material-icons">person_add</i>
+                                <p>Ajouter un collaborateur</p>
+                            </a>
+                        </li>
+                    </div>
+            <div *ngIf="Hrexpanded">
+                <li *ngIf="permissions?.includes('rhUpdate') || permissions?.includes('rhCreate') || permissions?.includes('rhView') || permissions?.includes('rhDelete')" routerLinkActive="active"  class="nav-item ml-n1">
+                        <a class="nav-link" [routerLink]="['/usersRh']">
+                            <i class="material-icons">people_outline</i>
+                            <p>Gestion des collaborateurs</p>
+                        </a>
+                    </li>
+                </div>
+                <div *ngIf="Hrexpanded">
+                        <li *ngIf="permissions?.includes('rhDemande')" routerLinkActive="active"  class="nav-item ml-n1">
+                                <a class="nav-link" [routerLink]="['/conges-Rh']">
+                                    <i class="material-icons">folder_shared</i>
+                                    <p>Gestion des congés</p>
+                                </a>
+                        </li>
+                </div>
+                <div *ngIf="Hrexpanded">
+                        <li *ngIf="permissions?.includes('rhDemande')" routerLinkActive="active"  class="nav-item ml-n1">
+                                <a class="nav-link" [routerLink]="['/AttestationRh']">
+                                    <i class="material-icons">featured_play_list</i>
+                                    <p>Gestion des attestations</p>
+                                </a>
+                        </li>
+                </div>
+           Gest Params 
+          <li   *ngIf="permissions?.includes('users') || permissions?.includes('groupes') || permissions?.includes('config')" class="nav-item takeleft" routerLinkActive="active" style="cursor: pointer;" >
+            <a  class="nav-link" (click)="Paramexpanded = !Paramexpanded">
+                <i class="material-icons">build</i>
+                <p>Paramètres
+                <span fxFlex>
+                    <span fxFlex></span>
+                    <mat-icon [@indicatorRotate]="Paramexpanded ? 'Paramcollapsed' : 'Paramexpanded'" class="pull-right">
+                        expand_more
+                    </mat-icon>
+                </span>
+                </p>    
+            </a>
+        </li>
+        <div *ngIf="Paramexpanded">
+            <li *ngIf="permissions?.includes('groupes')" routerLinkActive="active" class="nav-item ml-n1">
+                <a class="nav-link" [routerLink]="['/groupes']">
+                    <i class="material-icons">people</i>
+                    <p>Groupes</p>
+                </a>
+            </li>
+        </div>
+        <div *ngIf="Paramexpanded">
+                <li *ngIf="permissions?.includes('config')" routerLinkActive="active" class="nav-item ml-n1">
+                    <a  class="nav-link" [routerLink]="['/configuration']">
+                        <i class="material-icons">settings_applications</i>
+                        <p>Configuration</p>
+                    </a>
+                </li>
+            </div>
+        -->
+
+        <li *ngIf="isMobileMenu()" routerLinkActive="active" class="nav-item takeleft">
+            <a class="nav-link" href="" (click)="onLogoutClick()">
+                <i class="material-icons">exit_to_app</i> Déconnecter
+            </a>
+        </li>
+    </ul>
+</div>

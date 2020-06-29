@@ -1,0 +1,7 @@
+{
+    "/api/*":{
+      "target":"http://test.localhost.tn:3000",
+      "secure":false,
+      "logLevel":"debug"
+    }
+  }

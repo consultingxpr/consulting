@@ -1,0 +1,68 @@
+<div class="container-fluid mt--7 mt-5">
+    <div class="row">
+        <div class="col-xl-11 order-xl-1">
+            <div class="card">
+                <div class="card-header bg-white border-0">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <h3 class="mb-0" *ngIf="user">Utilisateur: {{user.email}}</h3>
+                        </div>
+                        <div class="col-4 text-right">
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                   
+                    
+                   
+                        <!-- Description -->
+                        <h6 class="heading-small text-muted mb-4">Information</h6>
+                        <div class="pl-lg-4">
+                            <form [formGroup]="firstFormGroup" class="row">
+                                <mat-form-field class="col-md-12">
+                                    <mat-label>Email*</mat-label>
+                                    <input matInput placeholder="email" formControlName="email">
+                                    <mat-error *ngIf="firstFormGroup.controls.email.invalid && firstFormGroup.controls.email.touched">Email obligatoire</mat-error>
+                                  </mat-form-field>
+                                  <mat-form-field class="col-md-6">
+                                    <mat-label>Nouveau mot de passe</mat-label>
+                                    <input matInput placeholder="Mot de passe" name="password" [type]="hide ? 'password' : 'text'"
+                                      formControlName="password"  required>
+                                      <span (click)="hide = !hide" style="cursor:pointer" matSuffix>
+                                        <i class="material-icons" *ngIf="!hide">visibility_off</i>
+                                        <i class="material-icons" *ngIf="hide">visibility</i>
+                                      </span>
+                                    <mat-error *ngIf="firstFormGroup.controls.password.invalid && firstFormGroup.controls.password.touched">Veuillez
+                                      choisir un nouveau mot de passe</mat-error>
+                                  </mat-form-field>
+                                  <mat-form-field class="col-md-6">
+                                    <mat-label>Confirmer mot de passe</mat-label>
+                                    <input matInput placeholder="Mot de passe" [type]="hide ? 'password' : 'text'" formControlName="confirmermotdepasse"
+                                      required>
+                                      <span (click)="hide = !hide" style="cursor:pointer" matSuffix>
+                                        <i class="material-icons" *ngIf="!hide">visibility_off</i>
+                                        <i class="material-icons" *ngIf="hide">visibility</i>
+                                      </span>
+                                    <mat-error
+                                      *ngIf="firstFormGroup.controls.confirmermotdepasse.invalid && firstFormGroup.controls.confirmermotdepasse.touched">
+                                      les deux mots de passes ne correspondent pas.</mat-error>
+                                  </mat-form-field>
+                            
+                            </form>
+                        </div>
+                       
+                        
+                        <div class="text-center">
+                            <button
+                            [ngClass]="{ 'btn-danger': firstFormGroup.invalid , 'btn-success': !firstFormGroup.invalid}"
+                            [disabled]="firstFormGroup.invalid"
+                                type="submit" class="btn btn-danger pull-right" (click)="updateUser()">Mettre a jour l'utilisateur</button>
+                        </div>
+                    
+                   
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

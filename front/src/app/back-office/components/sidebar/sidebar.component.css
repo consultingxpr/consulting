@@ -1,0 +1,52 @@
+.scroll {
+    height: auto;
+    width: 250px;
+    max-height: 275px;
+    overflow: scroll;
+}
+/* width */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    border-radius: 8px;
+
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgb(228, 225, 225); 
+    border-radius: 10px;
+
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(173, 170, 170); 
+}
+
+::-webkit-scrollbar:hover {
+    width: 10px;
+}
+
+
+.longtext {
+    display: inline-block;
+    max-width: 125px;
+    width: auto;
+    white-space: nowrap;
+    vertical-align: middle;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+}
+
+.takeleft{
+    margin-left: -15px !important;
+}
+
+p{
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

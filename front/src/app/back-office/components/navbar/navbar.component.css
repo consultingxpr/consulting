@@ -1,0 +1,42 @@
+.scroll {
+    height: auto;
+    width: 400px;
+    max-height: 275px;
+    overflow: scroll;
+}
+/* width */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgb(228, 225, 225); 
+    border-radius: 10px;
+
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(173, 170, 170); 
+}
+
+::-webkit-scrollbar:hover {
+    width: 15px;
+}
+
+
+.longtext {
+    display: inline-block;
+    max-width: 250px;
+    width: auto;
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+}

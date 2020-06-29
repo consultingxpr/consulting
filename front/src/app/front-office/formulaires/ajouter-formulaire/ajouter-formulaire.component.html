@@ -1,0 +1,282 @@
+<div class="main-content">
+  <div class="container-fluid my ">
+    <div class="row">
+      <div class="col-md-12 mx-auto ">
+        <div class="card">
+          <div class="card-header card-header-info">
+            <h4 class="card-title">Questionnaire</h4>
+
+
+          </div>
+          <div class="card-body">
+            <mat-horizontal-stepper [linear]="isLinear" #stepper>
+              <mat-step [stepControl]="firstFormGroup">
+                <form [formGroup]="firstFormGroup">
+                  <ng-template matStepLabel>Remplir les champs</ng-template>
+                  <div>
+
+                    <div class="form-group">
+                      <mat-label class="titre-question">Avez-vous une stratégie de développement de votre activité dans
+                        l'avenir (diversification...etc.) ?<span class="champs-obligatoire">*</span></mat-label>
+                      <mat-radio-group class="form-control" aria-label="choisir une option" formControlName="strategie">
+                        <mat-radio-button class="custom-radio" value="oui">oui</mat-radio-button>
+                        <mat-radio-button class="custom-radio" value="non">non</mat-radio-button>
+                      </mat-radio-group>
+                      <!--*ngIf="ft.famille.errors && ft.famille.touched"-->
+                      <mat-error *ngIf="firstFormGroup.controls.strategie.invalid  && formSubmitAttemptFirst">
+                        Reponse obligatoire</mat-error>
+                    </div>
+
+                    <div class="form-group">
+                      <mat-label class="titre-question">Avez-vous des projets d'investissement dans l'avenir proche
+                        ?<span class="champs-obligatoire">*</span>
+                      </mat-label>
+                      <mat-radio-group class="form-control" aria-label="choisir une option"
+                        formControlName="investissement">
+                        <mat-radio-button class="custom-radio" value="oui">oui</mat-radio-button>
+                        <mat-radio-button class="custom-radio" value="non">non</mat-radio-button>
+                      </mat-radio-group>
+                      <mat-error *ngIf="firstFormGroup.controls.investissement.invalid &&  formSubmitAttemptFirst">
+                        Reponse obligatoire</mat-error>
+                    </div>
+
+                    <div class="form-group">
+                      <mat-label class="titre-question">Disposez-vous d'un manuel de procédure interne au sein de votre
+                        entreprise (contrôle interne, comptabilité, comptabilité analytique, ...etc.) ?<span
+                          class="champs-obligatoire">*</span> </mat-label>
+                      <mat-radio-group class="form-control" aria-label="choisir une option" formControlName="manuel">
+                        <mat-radio-button class="custom-radio" value="oui">oui</mat-radio-button>
+                        <mat-radio-button class="custom-radio" value="non">non</mat-radio-button>
+                      </mat-radio-group>
+                      <mat-error *ngIf="firstFormGroup.controls.manuel.invalid &&  formSubmitAttemptFirst">Reponse
+                        obligatoire</mat-error>
+                    </div>
+
+
+                  </div>
+                  <div>
+                    <button mat-button (click)="submitAttempt(1)" class="btn btn-primary pull-right"
+                      matStepperNext>Suivant</button>
+                  </div>
+                </form>
+              </mat-step>
+
+              <mat-step [stepControl]="secondFormGroup">
+                <form [formGroup]="secondFormGroup">
+                  <ng-template matStepLabel>Remplir les champs</ng-template>
+
+                  <div class="form-group">
+                    <mat-label class="titre-question">Êtes-vous satisfait de votre bailleur des fonds ? <span
+                        class="champs-obligatoire">*</span></mat-label>
+                    <mat-radio-group class="form-control" aria-label="choisir une option" formControlName="bailleur">
+                      <mat-radio-button class="custom-radio" value="oui">oui</mat-radio-button>
+                      <mat-radio-button class="custom-radio" value="non">non</mat-radio-button>
+                    </mat-radio-group>
+                    <mat-error *ngIf="secondFormGroup.controls.bailleur.invalid &&  formSubmitAttemptSec">
+                      Reponse obligatoire</mat-error>
+                  </div>
+
+                  <div class="form-group">
+                    <mat-label class="titre-question">Avez-vous des réserves quant aux services fournis par votre banque
+                      ? <span class="champs-obligatoire">*</span></mat-label>
+                    <mat-radio-group class="form-control" aria-label="choisir une option"
+                      formControlName="servicebanque">
+                      <mat-radio-button class="custom-radio" value="oui">oui</mat-radio-button>
+                      <mat-radio-button class="custom-radio" value="non">non</mat-radio-button>
+                    </mat-radio-group>
+                    <mat-error *ngIf="secondFormGroup.controls.servicebanque.invalid &&  formSubmitAttemptSec">
+                      Reponse obligatoire</mat-error>
+                  </div>
+
+                  <div class="form-group" *ngIf="secondFormGroup.controls.servicebanque.value == 'oui'">
+                    <mat-label class="titre-question">Ces réserves peuvent-elles éventuellement vous pousser à changer
+                      de banque ?<span class="champs-obligatoire">*</span></mat-label>
+                    <mat-radio-group class="form-control" aria-label="choisir une option"
+                      formControlName="changerbanque">
+                      <mat-radio-button class="custom-radio" value="oui">oui</mat-radio-button>
+                      <mat-radio-button class="custom-radio" value="non">non</mat-radio-button>
+                    </mat-radio-group>
+                    <mat-error *ngIf="secondFormGroup.controls.changerbanque.invalid &&  formSubmitAttemptSec">
+                      Reponse obligatoire</mat-error>
+                  </div>
+
+                  <div class="form-group">
+                    <mat-label class="titre-question">Êtes vous satisfait du taux d'intérêt pratiqué avec votre banque
+                      (placement, emprunt, escompte des effets de commerce, crédit de gestion,...etc.)?<span
+                        class="champs-obligatoire">*</span> </mat-label>
+                    <mat-radio-group class="form-control" aria-label="choisir une option" formControlName="tauxinteret">
+                      <mat-radio-button class="custom-radio" value="oui">oui</mat-radio-button>
+                      <mat-radio-button class="custom-radio" value="non">non</mat-radio-button>
+                    </mat-radio-group>
+                    <mat-error *ngIf="secondFormGroup.controls.tauxinteret.invalid &&  formSubmitAttemptSec">
+                      Reponse obligatoire</mat-error>
+                  </div>
+
+                  <div class="form-group">
+                    <mat-label class="titre-question">Penseriez-vous que le coût actuel de vos emprunts bancaires est
+                      assez élevé ?<span class="champs-obligatoire">*</span></mat-label>
+                    <mat-radio-group class="form-control" aria-label="choisir une option" formControlName="coutemprunt">
+                      <mat-radio-button class="custom-radio" value="oui">oui</mat-radio-button>
+                      <mat-radio-button class="custom-radio" value="non">non</mat-radio-button>
+                    </mat-radio-group>
+                    <mat-error *ngIf="secondFormGroup.controls.coutemprunt.invalid &&  formSubmitAttemptSec">
+                      Reponse obligatoire</mat-error>
+                  </div>
+
+
+                  <div class="form-group">
+                    <mat-label class="titre-question">Comment envisageriez-vous financer vos prochains investissements
+                      ?<span class="champs-obligatoire">*</span>
+                    </mat-label>
+                    <div *ngFor="let choice of transport; let i=index" class="form-check">
+
+                      <input type="checkbox" [value]="choice.value" (change)="onCheckChange($event)"
+                        class="example-margin">
+                      <label>{{choice.description}}</label>
+                    </div>
+                    <mat-error *ngIf="secondFormGroup.controls.financerinvestissement.invalid &&  formSubmitAttemptSec">
+                      Reponse obligatoire</mat-error>
+                  </div>
+
+                  <div class="form-group">
+                    <mat-label class="titre-question">Faites-vous appel à des courtiers en crédit bancaire ?<span
+                        class="champs-obligatoire">*</span>
+                    </mat-label>
+                    <mat-radio-group class="form-control" aria-label="choisir une option" formControlName="courtiers">
+                      <mat-radio-button class="custom-radio" value="oui">oui</mat-radio-button>
+                      <mat-radio-button class="custom-radio" value="non">non</mat-radio-button>
+                    </mat-radio-group>
+                    <mat-error *ngIf="secondFormGroup.controls.courtiers.invalid &&  formSubmitAttemptSec">Reponse
+                      obligatoire</mat-error>
+                  </div>
+                  <div class="form-group">
+                    <mat-label class="titre-question">Comment compteriez-vous financer l'acquisition du matériel de
+                      transport de votre entreprise ?<span class="champs-obligatoire">*</span></mat-label>
+                    <div *ngFor="let choice of transport; let i=index" class="form-check">
+
+                      <input type="checkbox" [value]="choice.value" (change)="onCheckChange2($event)"
+                        class="example-margin">
+                      <label>{{choice.description}}</label>
+                    </div>
+                    <mat-error *ngIf="secondFormGroup.controls.materieltransport.invalid &&  formSubmitAttemptSec">
+                      Reponse obligatoire</mat-error>
+                  </div>
+                  <div class="form-group">
+                    <mat-label class="titre-question">Êtes-vous satisfait du service rendu par votre assurance ?<span
+                        class="champs-obligatoire">*</span>
+                    </mat-label>
+                    <mat-radio-group class="form-control" aria-label="choisir une option" formControlName="assurance">
+                      <mat-radio-button class="custom-radio" value="oui">oui</mat-radio-button>
+                      <mat-radio-button class="custom-radio" value="non">non</mat-radio-button>
+                    </mat-radio-group>
+                    <mat-error *ngIf="secondFormGroup.controls.assurance.invalid && formSubmitAttemptSec">Reponse
+                      obligatoire</mat-error>
+                  </div>
+
+                  <div class="form-group">
+                    <mat-label class="titre-question">Réalisiez-vous des études financières avant chaque investissement
+                      ? <span class="champs-obligatoire">*</span></mat-label>
+                    <mat-radio-group class="form-control" aria-label="choisir une option"
+                      formControlName="etudefiancieres">
+                      <mat-radio-button class="custom-radio" value="oui">oui</mat-radio-button>
+                      <mat-radio-button class="custom-radio" value="non">non</mat-radio-button>
+                    </mat-radio-group>
+                    <mat-error *ngIf="secondFormGroup.controls.etudefiancieres.invalid && formSubmitAttemptSec">Reponse
+                      obligatoire</mat-error>
+                  </div>
+
+
+
+                  <div>
+                    <button mat-button (click)="submitAttempt(2)" class="btn btn-primary pull-right"
+                      matStepperNext>Suivant</button>
+                    <button mat-button class="btn btn-danger pull-right" matStepperPrevious>Précédant</button>
+
+                  </div>
+                </form>
+              </mat-step>
+
+
+              <mat-step [stepControl]="thirdFormGroup">
+                <form [formGroup]="thirdFormGroup">
+                  <ng-template matStepLabel>Remplir les champs</ng-template>
+
+
+                  <div class="form-group">
+                    <mat-label class="titre-question">Existe-il une stratégie de Ressource Humaine bien définie au
+                      sein de votre entreprise ?<span class="champs-obligatoire">*</span></mat-label>
+                    <mat-radio-group class="form-control" aria-label="choisir une option" formControlName="strategierh">
+                      <mat-radio-button class="custom-radio" value="oui">oui</mat-radio-button>
+                      <mat-radio-button class="custom-radio" value="non">non</mat-radio-button>
+                    </mat-radio-group>
+                    <mat-error *ngIf="thirdFormGroup.controls.strategierh.invalid && formSubmitAttemptThird">Reponse
+                      obligatoire</mat-error>
+                  </div>
+                  <div class="form-group">
+                    <mat-label class="titre-question">Faites-vous appel à des Experts en matière de RH pour résoudre
+                      éventuellement des problèmes à ordre social ?<span class="champs-obligatoire">*</span>
+                    </mat-label>
+                    <mat-radio-group class="form-control" aria-label="choisir une option" formControlName="expertsrh">
+                      <mat-radio-button class="custom-radio" value="oui">oui</mat-radio-button>
+                      <mat-radio-button class="custom-radio" value="non">non</mat-radio-button>
+                    </mat-radio-group>
+                    <mat-error *ngIf="thirdFormGroup.controls.expertsrh.invalid && formSubmitAttemptThird">Reponse
+                      obligatoire</mat-error>
+                  </div>
+                  <div class="form-group">
+                    <mat-label class="titre-question">Existe-il une stratégie bien définie de recrutement ?<span
+                        class="champs-obligatoire">*</span>
+                    </mat-label>
+                    <mat-radio-group class="form-control" aria-label="choisir une option"
+                      formControlName="strategierecrutement">
+                      <mat-radio-button class="custom-radio" value="oui">oui</mat-radio-button>
+                      <mat-radio-button class="custom-radio" value="non">non</mat-radio-button>
+                    </mat-radio-group>
+                    <mat-error *ngIf="thirdFormGroup.controls.strategierecrutement.invalid && formSubmitAttemptThird">
+                      Reponse obligatoire</mat-error>
+                  </div>
+                  <div class="form-group">
+                    <mat-label class="titre-question">Faîtes-vous appel à des Experts en recrutement (prestataires de
+                      services) pour dénicher les meilleures compétences ?<span class="champs-obligatoire">*</span>
+                    </mat-label>
+                    <mat-radio-group class="form-control" aria-label="choisir une option"
+                      formControlName="expertsrecrutement">
+                      <mat-radio-button class="custom-radio" value="oui">oui</mat-radio-button>
+                      <mat-radio-button class="custom-radio" value="non">non</mat-radio-button>
+                    </mat-radio-group>
+                    <mat-error *ngIf="thirdFormGroup.controls.expertsrecrutement.invalid && formSubmitAttemptThird">
+                      Reponse
+                      obligatoire</mat-error>
+                  </div>
+                  <div class="form-group">
+                    <mat-label class="titre-question">Concernant la comptabilité êtes-vous satisfait de votre solution
+                      comptable actuelle ?<span class="champs-obligatoire">*</span> </mat-label>
+                    <mat-radio-group class="form-control" aria-label="choisir une option"
+                      formControlName="solutioncomptable">
+                      <mat-radio-button class="custom-radio" value="oui">oui</mat-radio-button>
+                      <mat-radio-button class="custom-radio" value="non">non</mat-radio-button>
+                    </mat-radio-group>
+                    <mat-error *ngIf="thirdFormGroup.controls.solutioncomptable.invalid && formSubmitAttemptThird">
+                      Reponse
+                      obligatoire</mat-error>
+                  </div>
+                  <div>
+                    <button mat-button class="btn btn-primary pull-right"
+                      (click)="submitAttempt(3);onSubmit()">Comfirmer</button>
+                    <button mat-button class="btn btn-danger pull-right" matStepperPrevious>Précédant</button>
+
+                  </div>
+                </form>
+              </mat-step>
+            </mat-horizontal-stepper>
+          </div>
+          <div class="card-footer">
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>

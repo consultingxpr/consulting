@@ -1,0 +1,47 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="card">
+          <div class="card-header card-header-primary">
+              <h3 class="card-title">Notifications:</h3>
+          </div>
+          <div class="card-body">
+              <div class="row">
+                    <a class="dropdown-item" *ngIf="notifications?.length <= 0">
+                            <div class="text-black mx-auto">Aucune Notification</div>
+                        </a>
+                    <ng-container *ngFor="let notification of notifications">
+                        <a class="dropdown-item" *ngIf="notification.link.params"  routerLink="{{notification.link?.url}}" [queryParams]="{id: notification.link?.paramsValue}">
+
+                        <div class="row justify-content-start">
+                                    <div *ngIf="notification.image; else defaultImage">
+                                            <img style="width:60px;height:60px;" class="rounded-circle" src="{{awsUrl}}{{notification.image}}" />
+                                    </div>
+                                    <ng-template #defaultImage>
+                                            <img style="width:60px;height:60px;" class="rounded-circle" src="{{baseUrl}}/uploads/img/icon.png" />
+                                    </ng-template>
+                        <div class="col longtext">
+                            <div class="card-title longtext"><b>{{notification.title}}</b> - {{notification.message}}</div>
+                            <div class="card-text text-info">{{timeAgo(notification.createdAt)}}</div>
+                        </div>
+                        </div>
+                        </a>
+                        <a class="dropdown-item" *ngIf="!notification.link.params"  routerLink="{{notification.link?.url}}">
+
+                            <div class="row justify-content-start">
+                                        <div *ngIf="notification.image; else defaultImage">
+                                                <img style="width:60px;height:60px;" class="rounded-circle" src="{{baseUrl}}/uploads/users/{{notification.image}}" />
+                                        </div>
+                                        <ng-template #defaultImage>
+                                                <img style="width:60px;height:60px;" class="rounded-circle" src="{{baseUrl}}/uploads/img/devlopy.png" />
+                                        </ng-template>
+                            <div class="col longtext">
+                                <div class="card-title longtext"><b>{{notification.title}}</b> - {{notification.message}}</div>
+                                <div class="card-text text-info">{{timeAgo(notification.createdAt)}}</div>
+                            </div>
+                            </div>
+                            </a>
+                    </ng-container>
+          </div>
+      </div>
+  </div>
+</div>
