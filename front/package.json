@@ -28,7 +28,7 @@
     "@types/dropzone": "^5.5.2",
     "@types/jquery": "^3.3.32",
     "@types/socket.io-client": "^1.4.32",
-    "ajv": "6.11.0",
+    "ajv": "6.12.3",
     "angular-calendar": "^0.28.2",
     "angular2-flash-messages": "^3.0.1",
     "angular2-toaster": "^8.0.0",
