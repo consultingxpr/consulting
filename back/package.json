@@ -29,7 +29,7 @@
     "nodemon": "^2.0.2",
     "passport": "^0.4.1",
     "sharp": "^0.25.4",
-    "socket.io": "^2.3.0"
+    "socket.io": "^2.5.0"
   },
   "main": "server.js",
   "author": "",
